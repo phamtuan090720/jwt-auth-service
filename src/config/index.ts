@@ -3,5 +3,6 @@ export default {
     ...evn,
     port: 8001,
     accessTokenExpiresIn: 15,
-    origin: 'http://localhost:3000',
+    refreshTokenExpiresIn: 60,
+    origin: ['http://localhost:3000'],
 };

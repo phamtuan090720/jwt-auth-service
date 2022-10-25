@@ -14,6 +14,7 @@ export const requireUser = (
 
     next();
   } catch (err: any) {
+    console.log("🚀 ~ file: requireUser.ts ~ line 17 ~ err", err)
     next(err);
   }
 };

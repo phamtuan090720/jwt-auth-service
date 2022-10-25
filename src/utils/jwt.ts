@@ -1,16 +1,13 @@
 import jwt, { Secret, SignOptions } from 'jsonwebtoken';
 import config from '../config';
-export const signJwt = (payload: Object, options: SignOptions = {}) => {
-    const privateKey = Buffer.from(config.accessTokenPrivateKey as string, 'base64').toString('ascii');
+export const signJwt = (payload: Object, key: 'accessTokenPrivateKey' | 'refreshTokenPrivateKey', options: SignOptions = {}) => {
+    const privateKey = config[key] as string;
     return jwt.sign(payload, privateKey, { ...options })
 };
-export const verifyJwt = <T>(token: string): T | null => {
+export const verifyJwt = <T>(token: string, key: 'accessTokenPublicKey' | 'refreshTokenPublicKey'): T | null => {
     try {
-        const publicKey = Buffer.from(
-            config.accessTokenPrivateKey as string,
-            'base64'
-        ).toString('ascii');
-        return jwt.verify(token, publicKey) as T;
+        const publicKey = config[key] as string
+        return jwt.verify(token, publicKey as string) as T;
     } catch (error) {
         return null;
     }
