@@ -11,7 +11,11 @@ export const getMeHandler = (
     res.status(200).json({
       status: 'success',
       data: {
-        user,
+        user: {
+          ...user,
+          createdAt: new Date(user.createdAt).getTime(),
+          updatedAt: new Date(user.updatedAt).getTime()
+        }
       },
     });
   } catch (err: any) {

@@ -37,11 +37,18 @@ export const signToken = async (user: DocumentType<User>) => {
   // Sign the access token
   const access_token = signJwt(
     { sub: user._id },
+    'accessTokenPrivateKey',
 
     {
       expiresIn: `${config.accessTokenExpiresIn}m`,
     }
   );
+
+  // Sign the refresh token
+  const refresh_token = signJwt({ sub: user._id }, 'refreshTokenPrivateKey', {
+    expiresIn: `${config.accessTokenExpiresIn}m`,
+  });
+
   try {
     redisClient.set(JSON.stringify(user._id), JSON.stringify(user), {
       EX: 60 * config.accessTokenExpiresIn,
@@ -49,7 +56,7 @@ export const signToken = async (user: DocumentType<User>) => {
   } catch (error) {
     console.log(error)
   }
-  
+
   // Return access token
-  return { access_token };
+  return { access_token, refresh_token };
 };

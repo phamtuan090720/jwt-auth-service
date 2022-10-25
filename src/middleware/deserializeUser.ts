@@ -26,7 +26,7 @@ export const deserializeUser = async (
     }
 
     // Validate Access Token
-    const decoded = verifyJwt<{ sub: string }>(access_token);
+    const decoded = verifyJwt<{ sub: string }>(access_token, 'accessTokenPublicKey');
     if (!decoded) {
       return next(new AppError(`Invalid token or user doesn't exist`, 401));
     }
@@ -50,6 +50,7 @@ export const deserializeUser = async (
 
     next();
   } catch (err: any) {
+    console.log("🚀 ~ file: deserializeUser.ts ~ line 53 ~ err", err)
     next(err);
   }
 };
