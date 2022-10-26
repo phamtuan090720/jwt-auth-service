@@ -16,6 +16,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "start": "ts-node-dev --respawn --transpile-only src/app.ts"
   },
