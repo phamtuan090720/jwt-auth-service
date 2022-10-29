@@ -23,7 +23,7 @@ User Authorization and Authentication System with Jwt
 1. Clone the project
 2. Install Docker Compose : https://docs.docker.com/compose/install/
 3. Run `docker-compose up -d`
-4. Run `yarn add`
+4. Run `yarn install`
 5. Example .env file :
 ```env
 NODE_ENV=development
